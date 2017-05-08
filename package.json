@@ -1,0 +1,31 @@
+{
+  "name": "port-opt",
+  "version": "0.1.0",
+  "description": "WebApp for stock portfolio optimization.",
+  "main": "program.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/houtan1/PortOpt-WebApp.git"
+  },
+  "keywords": [
+    "stocks",
+    "finance",
+    "math",
+    "portfolio"
+  ],
+  "author": "Houtan Emad",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/houtan1/PortOpt-WebApp/issues"
+  },
+  "homepage": "https://github.com/houtan1/PortOpt-WebApp#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
