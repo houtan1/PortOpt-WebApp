@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Title: <%= title %></title>
+  </head>
+  <body>
+    <h1>
+      The chosen stock: <%= stock.name %>
+    </h1>
+    <ul>
+      <% for (var i = 0; i < stock.monthly.length; i++) { %>
+        <li> <%= stock.monthly[i] %> </li>
+      <% } %>
+    </ul>
+  </body>
+</html>

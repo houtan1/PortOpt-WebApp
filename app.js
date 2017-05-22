@@ -4,18 +4,23 @@ var express = require('express');
 var app = express();
 var port = 3000;
 
-// import functions from dummyData.js
-var dummyData = require("./lib/dummyData").data;
+// set up a router for stocks
+var stockRouter = require('./src/routes/stockRoutes')();
+
+//try
+app.use(express.static('public'));
+
+// use stockRouter to handle requests to /stocks
+app.use('/stocks', stockRouter);
 
 // using EJS as templating engine to compose and serve up index.html
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
-// Render the html page using EJS and pass variables to it
+//try
 app.get('/', function(req, res) {
   res.render('index', {
-    stockA: dummyData.fetch('A'),
-    stockB: dummyData.fetch('B')
+    title: 'index'
   });
 });
 
@@ -24,5 +29,5 @@ app.listen(port, function(err) {
   console.log('Running server on port ' + port);
 });
 console.log("Server ready...");
-console.log("Go to a web browser and navigate to localhost:3000");
+console.log("Go to a web browser and navigate to localhost:3000/stocks");
 console.log("Stop the server by using Ctrl+C");
