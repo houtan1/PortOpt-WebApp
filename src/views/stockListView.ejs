@@ -8,7 +8,7 @@
     <!-- Loop through and display the stocks -->
     <% for(var i = 0; i < stock.length; i++) { %>
       <h1>
-        <a href="/stocks/<%= i %>" ><%= stock[i].name %></a>
+        <a href="<%= i %>" ><%= stock[i].name %></a>
       </h1>
       <ul>
         <% for (var j = 0; j < stock[i].monthly.length; j++) { %>

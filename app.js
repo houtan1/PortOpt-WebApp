@@ -7,22 +7,12 @@ var port = 3000;
 // set up a router for stocks
 var stockRouter = require('./src/routes/stockRoutes')();
 
-//try
-app.use(express.static('public'));
-
-// use stockRouter to handle requests to /stocks
-app.use('/stocks', stockRouter);
+// use stockRouter to handle requests to /
+app.use('/', stockRouter);
 
 // using EJS as templating engine to compose and serve up index.html
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
-
-//try
-app.get('/', function(req, res) {
-  res.render('index', {
-    title: 'index'
-  });
-});
 
 // start it up, the function(err) is a callback function...
 app.listen(port, function(err) {
