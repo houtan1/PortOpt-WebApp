@@ -1,3 +1,5 @@
+// DELETE THIS FILE
+
 var dummyData = require("../lib/dummyData").data;
 
 // tests
