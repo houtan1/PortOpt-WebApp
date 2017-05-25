@@ -27,13 +27,48 @@ var router = function() {
       res.render('stockListView', {
         title: 'stockListView',
         // send in our JSON array of stock info
-        stock: stocks,
-        correlation: stockCorrelation(stocks[0], stocks[1])
+        stock: stocks
+      });
+    });
+
+  stockRouter.route('/info/:id')
+    .get(function(req, res) {
+      var id = req.params.id;
+      res.render('stockView', {
+        title: 'SingleStock',
+        // send in our single JSON stock object
+        stock: stocks[id],
+        expectation: stockExpect(stocks[id]),
+        risk: stockRisk(stocks[id])
+      });
+    });
+
+  stockRouter.route('/choice/:id1')
+    .get(function(req, res) {
+      var id1 = req.params.id1;
+      res.render('stockListViewMod', {
+        title: 'stockListViewMod',
+        remove: id1,
+        stock: stocks
+      });
+    });
+
+  stockRouter.route('/choice/pair/:id1-:id2')
+    .get(function(req, res) {
+      var id1 = req.params.id1;
+      var id2 = req.params.id2;
+      res.render('pairBoundsView', {
+        title: 'pairBoundsView',
+        stockA: stocks[id1],
+        stockB: stocks[id2],
+        correlation: stockCorrelation(stocks[id1], stocks[id2])
       });
     });
 
   // individual stock route with chrome fix
   // show the expectation and risk of each stock
+  // turn this to /info/:id
+  /*
   stockRouter.route('/:id')
     .get(function(req, res) {
       var id = req.params.id;
@@ -47,6 +82,7 @@ var router = function() {
         });
       }
     });
+    */
 
   // this runs into an issue with chrome, when it requests
   // localhost:3000/favicon.ico, and our route captures that as an id

@@ -6,10 +6,11 @@
   </head>
   <body>
     <h1>
-      Choose your first stock!
+      Choose your second stock!
     </h1>
-    <!-- Loop through and display the stocks -->
-    <% for(var i = 0; i < stock.length; i++) { %>
+    <!-- Loop through and display the stocks, minus the previously chosen -->
+    <% for(var i = 0; i < stock.length; i++) {
+        if (i != remove) { %>
       <h2>
         <%= stock[i].name %>
       </h2>
@@ -19,14 +20,11 @@
         <% } %>
       </ul>
       <p>
-        <a href="info/<%= i %>" >Expectation and Risk for <%= stock[i].name %>
+        <a href="pair/<%= remove %>-<%= i %>" >Select <%= stock[i].name %> for
+          your portfolio.
         </a>
       </p>
-      <p>
-        <a href="choice/<%= i %>" >Select <%= stock[i].name %> for your
-          portfolio.
-        </a>
-      </p>
-    <% } %>
+    <% }} %>
+
   </body>
 </html>
