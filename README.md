@@ -23,3 +23,9 @@ This software is not financial advice.
 This software is provided as-is and makes absolutely no guarantees about anything.
 Do not make any decisions, financial or otherwise, based on this software.
 The author is not liable for any damages resulting from use or misuse of this software.
+
+##
+![https://xkcd.com/1570/][comic]
+
+[comic]: https://imgs.xkcd.com/comics/engineer_syllogism.png "XKCD Comic 1570"
+https://xkcd.com/1570/
