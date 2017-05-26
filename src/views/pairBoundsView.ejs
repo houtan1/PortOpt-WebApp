@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Title: <%= title %></title>
+  </head>
+  <body>
+    <h1>
+      Details for <%= stockA.name %> and <%= stockB.name %>
+    </h1>
+    <p>
+      The correlation between these stocks: <%= correlation %>
+    </p>
+    <p>
+      <% if (correlation < 0) { %>
+        This correlation is negative, you may select a minimum return value for
+        your portfolio, between $<%= expMin %> and $<%= expMax %>, to get an
+        investment strategy.
+        <form action="/strategy/<%= id1 %>-<%= id2 %>" method="get">
+          <input type="number" name="value"
+            min="<%= expMin %>" max="<%= expMax %>" step=".01">
+          <input type="submit" value="Compute investment strategy">
+        </form>
+      <% } else { %>
+        The chosen stocks are not negatively correlated. Go back and choose a
+        different pair that is negatively correlated.
+      <% } %>
+    </p>
+  </body>
+</html>
