@@ -90,8 +90,8 @@ exports ["Calculate investment strategy for pair of stocks"] = function(test) {
   // send in a pair of stocks and a desired return to get an investment strategy
   var strategy = stockStrategy(stocks[0], stocks[2], 3.5);
   // Assertion strategy = [0.25, 0.75, 50.469]
-  test.equal(strategy[0], 0.25); // % invested in stock A
-  test.equal(strategy[1], 0.75); // % invested in stock C
+  test.equal(strategy[0], 25.0); // % invested in stock A
+  test.equal(strategy[1], 75.0); // % invested in stock C
   test.equal(strategy[2], 50.469); // the risk of this strategy
   // end of test
   test.done();
