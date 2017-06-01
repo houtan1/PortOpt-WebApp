@@ -62,15 +62,30 @@ var router = function() {
          88.95, 93.74, 89.02],
       monthly: [4.72, -4.79, -1.81, 0.14, -3.96, 3.98, 2.96, -6.37, -2.57, 0.69,
         -0.36]
+    },
+    {
+      name: 'BHP',
+      actual: [35.6, 36.32, 37.82, 41.29, 35.78, 37.54, 35.02, 34.65, 30,
+        29.69, 28.56, 26.97],
+      monthly: [1.59, 1.13, 0.31, 4.65, 0.37, 2.52, -1.76, 5.51, -3.47, -1.5,
+        -0.72]
     }
   ];
 
   // define the routes in stockRouter
   stockRouter.route('/').get(function(req, res) {
+    var exp = [];
+    var rsk = [];
+    for (var i = 0; i < stocks.length; i++) {
+      exp[i] = stockExpect(stocks[i]);
+      rsk[i] = stockRisk(stocks[i]);
+    }
     res.render('stockListView', {
       title: 'stockListView',
       // send in our JSON array of stock info
-      stock: stocks
+      stock: stocks,
+      expectation: exp,
+      risk: rsk
     });
   });
 
@@ -111,6 +126,8 @@ var router = function() {
     });
   });
 
+  // no longer a need for this route
+  /*
   stockRouter.route('/info/:id').get(function(req, res) {
     var id = req.params.id;
     res.render('stockView', {
@@ -120,7 +137,7 @@ var router = function() {
       expectation: stockExpect(stocks[id]),
       risk: stockRisk(stocks[id])
     });
-  });
+  });*/
 
   // individual stock route with chrome fix
   // show the expectation and risk of each stock

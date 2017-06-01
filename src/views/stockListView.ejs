@@ -21,14 +21,11 @@ body, html {
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
   <div class="w3-bar w3-white w3-card-2" id="myNavbar">
-    <a href="#home" class="w3-bar-item w3-button w3-wide">LOGO</a>
+    <a href="#stocks" class="w3-bar-item w3-button w3-wide">Portfolio Optimization</a>
     <!-- Right-sided navbar links -->
     <div class="w3-right w3-hide-small">
-      <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
-      <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i> TEAM</a>
-      <a href="#work" class="w3-bar-item w3-button"><i class="fa fa-th"></i> WORK</a>
-      <a href="#pricing" class="w3-bar-item w3-button"><i class="fa fa-usd"></i> PRICING</a>
-      <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
+      <a href="http://burritocat.xyz" target="_blank" class="w3-bar-item w3-button">BURRITOCAT</a>
+      <a href="https://github.com/houtan1/PortOpt-WebApp" target="_blank" class="w3-bar-item w3-button"><i class="fa fa-code-fork"></i> CODE</a>
     </div>
     <!-- Hide right-floated links on small screens and replace them with a menu icon -->
 
@@ -41,46 +38,54 @@ body, html {
 <!-- Sidebar on small screens when clicking the menu icon -->
 <nav class="w3-sidebar w3-bar-block w3-black w3-card-2 w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
-  <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT</a>
-  <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">TEAM</a>
-  <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">WORK</a>
-  <a href="#pricing" onclick="w3_close()" class="w3-bar-item w3-button">PRICING</a>
-  <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">CONTACT</a>
+  <a href="http://burritocat.xyz" target="_blank" onclick="w3_close()" class="w3-bar-item w3-button">BURRITOCAT</a>
+  <a href="https://github.com/houtan1/PortOpt-WebApp" target="_blank" onclick="w3_close()" class="w3-bar-item w3-button">CODE</a>
 </nav>
 
-<!-- Pricing Section -->
-<div class="w3-container w3-center w3-light-grey" style="padding:128px 16px" id="pricing">
+<!-- Stocks Section -->
+<div class="w3-container w3-center w3-light-grey" style="padding:128px 16px" id="stocks">
   <h3>Pick two stocks</h3>
   <p class="w3-large">Select a pair of stocks that you would like to invest in.</p>
-  <div class="w3-row-padding" style="margin-top:64px">
-    <div class="w3-third w3-section">
-      <ul class="w3-ul w3-white w3-hover-shadow">
-        <li class="w3-black w3-xlarge w3-padding-32">STCK</li>
-        <li class="w3-padding-16">
-          <h2 class="w3-wide">$ 10</h2>
-          <span>Expectation</span>
-        </li>
-        <li class="w3-padding-16">Risk <b>10GB</b></li>
-        <li class="w3-padding-16">
-          <button class="w3-button w3-black w3-padding-large">Select</button>
-        </li>
-      </ul>
+  <div class="w3-row-padding" style="">
+
+    <!-- start a form here with simple get request -->
+    <form action="/pair" method="get">
+      <!-- Loop through and display the stocks -->
+      <% for(var i = 0; i < stock.length; i++) { %>
+        <div class="w3-third w3-padding">
+          <ul class="w3-ul w3-white w3-hover-shadow">
+            <li class="w3-black w3-xlarge w3-padding-32"><%= stock[i].name %></li>
+            <li class="w3-padding-16">
+              <h2 class="w3-wide">$<%= expectation[i] %></h2>
+              <span>Expectation</span>
+            </li>
+            <li class="w3-padding-16">Risk <b><%= risk[i] %></b></li>
+            <li class="w3-padding-16">
+              <input class="w3-check" type="checkbox" name="index" value="<%=i%>">
+              <label>Select</label>
+            </li>
+          </ul>
+        </div>
+      <% } %>
+    <div class="w3-row-padding" style="margin-top:64px">
+      <button class="w3-button w3-black w3-padding-large" type="submit">Submit Stock Pair</button>
     </div>
+    </form>
   </div>
+
 </div>
 
 <!-- Footer -->
 <footer class="w3-center w3-black w3-padding-64">
-  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+  <a href="#stocks" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
   <div class="w3-xlarge w3-section">
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-snapchat w3-hover-opacity"></i>
-    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
+    <a href="https://github.com/houtan1" target="_blank">
+      <i class="fa fa-github w3-hover-opacity"></i>
+    </a>
+    <a href="https://www.linkedin.com/in/houtane/" target="_blank">
+      <i class="fa fa-linkedin w3-hover-opacity"></i>
+    </a>
   </div>
-  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
 </footer>
 
 <!-- Sidebar effects-->
