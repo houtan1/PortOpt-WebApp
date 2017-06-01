@@ -21,7 +21,7 @@ body, html {
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
   <div class="w3-bar w3-white w3-card-2" id="myNavbar">
-    <a href="#stocks" class="w3-bar-item w3-button w3-wide">Portfolio Optimization</a>
+    <a href="#stocks" class="w3-bar-item w3-button w3-wide">PORTFOLIO OPTIMIZATION</a>
     <!-- Right-sided navbar links -->
     <div class="w3-right w3-hide-small">
       <a href="http://burritocat.xyz" target="_blank" class="w3-bar-item w3-button">BURRITOCAT</a>
@@ -44,62 +44,50 @@ body, html {
 
 <!-- Stocks Section -->
 <div class="w3-container w3-center w3-light-grey" style="padding:128px 16px" id="stocks">
-  <h3>Your stocks</h3>
-  <p class="w3-large">You have chosen to invest in <%=stockA.name%> and <%=stockB.name%></p>
-  <div class="w3-row-padding" style="">
+  <h3>Your stocks are <%=stockA.name%> and <%=stockB.name%></h3>
+  <p class="w3-large">The correlation between these stocks is <%= correlation %></p>
+  <div class="w3-row-padding">
 
-    <!-- start a form here with simple get request -->
-    <form action="/pair" method="get">
-      <!-- Loop through and display the stocks -->
-      <% for(var i = 0; i < stock.length; i++) { %>
-        <div class="w3-third w3-padding">
-          <ul class="w3-ul w3-white w3-hover-shadow">
-            <li class="w3-black w3-xlarge w3-padding-32"><%= stock[i].name %></li>
-            <li class="w3-padding-16">
-              <h2 class="w3-wide">$<%= expectation[i] %></h2>
-              <span>Expectation</span>
-            </li>
-            <li class="w3-padding-16">Risk <b><%= risk[i] %></b></li>
-            <li class="w3-padding-16">
-              <input class="w3-check" type="checkbox" name="index" value="<%=i%>">
-              <label>Select</label>
-            </li>
-          </ul>
-        </div>
-      <% } %>
-    <div class="w3-row-padding" style="margin-top:64px">
-      <button class="w3-button w3-black w3-padding-large" type="submit">Submit Stock Pair</button>
-    </div>
-    </form>
-  </div>
-
-  <!--ref-->
-  <!-- TODO: use w3.css reference to create a green or red section depending on
-  correlation and implement the rest... -->
-  <body>
-    <h1>
-      Details for <%= stockA.name %> and <%= stockB.name %>
-    </h1>
-    <p>
-      The correlation between these stocks: <%= correlation %>
-    </p>
-    <p>
-      <% if (correlation < 0) { %>
-        This correlation is negative, you may select a minimum return value for
-        your portfolio, between $<%= expMin %> and $<%= expMax %>, to get an
-        investment strategy.
-        <form action="/strategy/<%= id1 %>-<%= id2 %>" method="get">
-          <input type="number" name="value"
+    <!-- start material here -->
+    <% if (correlation < 0) { %>
+      <div class="w3-panel w3-green">
+        <h2>This correlation is negative!</h2>
+      </div>
+      <form class="w3-container" action="/strategy/<%= id1 %>-<%= id2 %>" method="get">
+        <p>
+          Select a minimum return value for your portfolio between
+          $<%= expMin %> and $<%= expMax %>, to get an investment strategy.
+        </p>
+        <div class="w3-cell-row" style="width:75%">
+          <div class="w3-cell w3-right-align">
+            <label>Desired Return:&nbsp;</label>
+          </div>
+          <div class="w3-cell">
+            <input class="w3-input" type="number" name="value"
             min="<%= expMin %>" max="<%= expMax %>" step=".01">
-          <input type="submit" value="Compute investment strategy">
-        </form>
-      <% } else { %>
+          </div>
+        </div>
+        <p>
+          <button class="w3-button w3-green" type="submit">
+            Compute investment strategy
+          </button>
+        </p>
+      </form>
+    <% } else { %>
+      <div class="w3-panel w3-red">
+        <h2>This correlation is negative!</h2>
+      </div>
+      <p>
         The chosen stocks are not negatively correlated. Go back and choose a
         different pair that is negatively correlated. Hint: try IBM and TSLA.
-      <% } %>
-    </p>
-  </body>
-
+      </p>
+      <p>
+        <a href="./" class="w3-button w3-red">
+          Go back
+        </a>
+      </p>
+    <% } %>
+  </div>
 </div>
 
 <!-- Footer -->
