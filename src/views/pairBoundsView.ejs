@@ -55,34 +55,34 @@ body, html {
       </div>
       <form class="w3-container" action="/strategy/<%= id1 %>-<%= id2 %>" method="get">
         <p>
-          Select a minimum return value for your portfolio between
-          $<%= expMin %> and $<%= expMax %>, to get an investment strategy.
+          <b>Select a minimum return value</b> for your portfolio between
+          <b>$<%= expMin %></b> and <b>$<%= expMax %></b>, to get an investment strategy.
         </p>
         <div class="w3-cell-row" style="width:75%">
           <div class="w3-cell w3-right-align">
-            <label>Desired Return:&nbsp;</label>
+            <label>Desired Return:&nbsp;&nbsp;$</label>
           </div>
           <div class="w3-cell">
             <input class="w3-input" type="number" name="value"
-            min="<%= expMin %>" max="<%= expMax %>" step=".01">
+            min="<%= expMin %>" max="<%= expMax %>" step=".01" value="<%= expMin %>" >
           </div>
         </div>
         <p>
-          <button class="w3-button w3-green" type="submit">
+          <button class="w3-button w3-green w3-padding-large" type="submit">
             Compute investment strategy
           </button>
         </p>
       </form>
     <% } else { %>
       <div class="w3-panel w3-red">
-        <h2>This correlation is negative!</h2>
+        <h2>This correlation is positive!</h2>
       </div>
       <p>
         The chosen stocks are not negatively correlated. Go back and choose a
         different pair that is negatively correlated. Hint: try IBM and TSLA.
       </p>
       <p>
-        <a href="./" class="w3-button w3-red">
+        <a href="./" class="w3-button w3-red w3-padding-large">
           Go back
         </a>
       </p>

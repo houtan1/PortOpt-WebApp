@@ -26,7 +26,7 @@ var router = function() {
     }
   ];
 
-  // Real JSON Data (hard coded) 5 stocks, 9 months, start April 28 and back
+  // Real JSON Data (hard coded) 6 stocks, 12 months, start April 28 and back
   // e.g. monthly: [(57.60-57.46), (59.92-57.60), (60.26-59.92), etc.]
   var stocks = [
     {
@@ -72,6 +72,10 @@ var router = function() {
     }
   ];
 
+  // define errorStatus
+  // 0--> no errors 1--> no stocks chosen 2--> only 1 stock chosen 3--> more than two stocks chosen
+  var errorStatus = 0;
+
   // define the routes in stockRouter
   stockRouter.route('/').get(function(req, res) {
     var exp = [];
@@ -85,11 +89,26 @@ var router = function() {
       // send in our JSON array of stock info
       stock: stocks,
       expectation: exp,
-      risk: rsk
+      risk: rsk,
+      err: errorStatus
     });
   });
 
   stockRouter.route('/pair').get(function(req, res) {
+    // error checking
+    if (req.query.index == undefined) {
+      errorStatus = 1; // no stocks chosen
+      res.redirect('/');
+    } else if (req.query.index[1] == undefined) {
+      errorStatus = 2; // only 1 stock chosen
+      res.redirect('/');
+    } else if (req.query.index[2] != undefined) {
+      errorStatus = 3; // more than 2 stocks chosen
+      res.redirect('/');
+    } else {
+      errorStatus = 0; // error reset
+    }
+
     var id1 = req.query.index[0];
     var id2 = req.query.index[1];
     var exp1 = stockExpect(stocks[id1]);
