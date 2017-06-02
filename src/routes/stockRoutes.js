@@ -11,7 +11,7 @@ var stockStrategy = require("../../lib/stockMath").strategize;
 // set up router function that returns stockRouter
 var router = function() {
   // JSON array of stock info
-  var stocks = [
+  var stocksOld = [
     {
       name: 'StockA',
       monthly: [2, 1, 3, 2]
@@ -26,16 +26,89 @@ var router = function() {
     }
   ];
 
+  // Real JSON Data (hard coded) 6 stocks, 12 months, start April 28 and back
+  // e.g. monthly: [(57.60-57.46), (59.92-57.60), (60.26-59.92), etc.]
+  var stocks = [
+    {
+      name: 'MSFT',
+      actual: [68.46, 65.86, 63.98, 64.65, 62.14, 60.26, 59.92, 57.60, 57.46,
+        56.68, 51.17, 53],
+      monthly: [-1.83, 5.51, 0.78, 0.14, 2.32, 0.34, 1.88, 2.51, -0.67, 1.88, 2.6]
+    },
+    {
+      name: 'IBM',
+      actual: [160.29, 174.14, 179.82, 174.52, 165.99, 162.22, 153.69, 158.85,
+        158.88, 160.62, 151.78, 153.74],
+      monthly: [-1.96, 8.84, -1.74, -0.03, -5.16, 8.53, 3.77, 8.53, 5.3, -5.68,
+        -13.85]
+    },
+    {
+      name: 'TEAM',
+      actual: [34.48, 29.95, 28.44, 27.63, 24.08, 27.14, 26.86, 29.97, 29.48,
+        29.97, 25.9, 22.57],
+      monthly: [3.33, 4.07, -0.49, 0.49, -3.11, 0.28, -3.06, 3.55, 0.81, 1.51,
+        4.53]
+    },
+    {
+      name: 'TSLA',
+      actual: [314.07, 278.3, 249.99, 251.93, 213.69, 189.4, 197.73, 204.03,
+        212.01, 234.79, 212.28, 223.23],
+      monthly: [-10.95, 22.51, -22.78, -7.98, -6.3, -8.33, 24.29, 38.24, -1.94,
+        28.31, 35.77]
+    },
+    {
+      name: 'XOM',
+      actual: [81.65, 82.01, 81.32, 83.89, 90.26, 87.3, 83.32, 87.28, 87.14,
+         88.95, 93.74, 89.02],
+      monthly: [4.72, -4.79, -1.81, 0.14, -3.96, 3.98, 2.96, -6.37, -2.57, 0.69,
+        -0.36]
+    },
+    {
+      name: 'BHP',
+      actual: [35.6, 36.32, 37.82, 41.29, 35.78, 37.54, 35.02, 34.65, 30,
+        29.69, 28.56, 26.97],
+      monthly: [1.59, 1.13, 0.31, 4.65, 0.37, 2.52, -1.76, 5.51, -3.47, -1.5,
+        -0.72]
+    }
+  ];
+
+  // define errorStatus
+  // 0--> no errors 1--> no stocks chosen 2--> only 1 stock chosen 3--> more than two stocks chosen
+  var errorStatus = 0;
+
   // define the routes in stockRouter
   stockRouter.route('/').get(function(req, res) {
+    var exp = [];
+    var rsk = [];
+    for (var i = 0; i < stocks.length; i++) {
+      exp[i] = stockExpect(stocks[i]);
+      rsk[i] = stockRisk(stocks[i]);
+    }
     res.render('stockListView', {
       title: 'stockListView',
       // send in our JSON array of stock info
-      stock: stocks
+      stock: stocks,
+      expectation: exp,
+      risk: rsk,
+      err: errorStatus
     });
   });
 
   stockRouter.route('/pair').get(function(req, res) {
+    // error checking
+    if (req.query.index == undefined) {
+      errorStatus = 1; // no stocks chosen
+      res.redirect('/');
+    } else if (req.query.index[1] == undefined) {
+      errorStatus = 2; // only 1 stock chosen
+      res.redirect('/');
+    } else if (req.query.index[2] != undefined) {
+      errorStatus = 3; // more than 2 stocks chosen
+      res.redirect('/');
+    } else {
+      errorStatus = 0; // error reset
+    }
+
     var id1 = req.query.index[0];
     var id2 = req.query.index[1];
     var exp1 = stockExpect(stocks[id1]);
@@ -72,6 +145,8 @@ var router = function() {
     });
   });
 
+  // no longer a need for this route
+  /*
   stockRouter.route('/info/:id').get(function(req, res) {
     var id = req.params.id;
     res.render('stockView', {
@@ -81,7 +156,7 @@ var router = function() {
       expectation: stockExpect(stocks[id]),
       risk: stockRisk(stocks[id])
     });
-  });
+  });*/
 
   // individual stock route with chrome fix
   // show the expectation and risk of each stock

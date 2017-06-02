@@ -8,16 +8,21 @@
     <h1>
       Details for stock: <%= stock.name %>
     </h1>
+    <p>
+      The following are the 11 returns of this stock, based on monthly closing
+      numbers taken over the past year.
+    </p>
     <ul>
       <% for (var i = 0; i < stock.monthly.length; i++) { %>
-        <li> <%= stock.monthly[i] %> </li>
+        <li> $<%= stock.monthly[i] %> </li>
       <% } %>
     </ul>
     <h2>
-      The expectation for this stock: <%= expectation %>
+      The expectation for this stock: $<%= expectation %>
     </h2>
     <h2>
       The risk for this stock: <%= risk %>
     </h2>
   </body>
 </html>
+<!-- DELETE THIS FILE -->
