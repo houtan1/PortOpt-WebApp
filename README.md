@@ -2,11 +2,13 @@
 Node.js application for stock portfolio optimization
 
 ## How to Use
+### Web
+This app is hosted on the cloud, accessible at https://radiant-garden-89305.herokuapp.com/
+### Local
 Run this application locally by downloading the repository.
 Navigate to it and run the NPM commands `npm install` to install all dependencies, `npm test` to ensure nothing is broken, and `npm start` to start up the web app.
 In a web browser, navigate to `localhost:3000` to use the app.
 When finished, follow the instrunction in the command line to shut down the web server.
-**The web app will soon be hosted and the above instructions will no longer be necessary.**
 
 ## Goal
 Providing an investment strategy based on stock performance and user's risk aversiveness/financial target.
