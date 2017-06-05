@@ -2,7 +2,8 @@
 // from https://www.npmjs.com/package/express
 var express = require('express');
 var app = express();
-var port = 3000;
+
+app.set('port', (process.env.PORT || 3000));
 
 // set up a router for stocks
 var stockRouter = require('./src/routes/stockRoutes')();
@@ -15,9 +16,9 @@ app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
 // start it up, the function(err) is a callback function...
-app.listen(port, function(err) {
-  console.log('Running server on port ' + port);
+app.listen(app.get('port'), function(err) {
+  console.log('Running server on port ' + app.get('port'));
 });
 console.log("Server ready...");
-console.log("Go to a web browser and navigate to localhost:3000/stocks");
+console.log("Go to a web browser and navigate to localhost:" + app.get('port'));
 console.log("Stop the server by using Ctrl+C");
